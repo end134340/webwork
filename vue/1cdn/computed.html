@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>computed.html</title>
+</head>
+
+<body>
+  <div id="app">
+    이름: {{fullName}}
+  </div>
+
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+  <script>
+    Vue.createApp({
+      data() {
+        return {
+          firstname: '길동',
+          lastname: '홍'
+        }
+      },
+      methods: {
+
+      },
+      mounted() {},
+      computed: {
+        fullName() {
+          return this.firstname + this.lastname;
+          //여기에서 감시하고 있는 속성이 변경되면 알아서 재계산되어 함수가 호출된 곳에 나타남
+        }
+      }
+    }).mount('#app');
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>event.html</title>
+</head>
+
+<body>
+  <input type="text" id="txt">
+  <a href="http://naver.com" id="goBtn">네이버로 이동</a>
+  <div id="div">
+    <button type="button" id="btn">클릭</button>
+  </div>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+  <script>
+    txt.addEventListener('keypress', () => {
+      //키보드 이벤트
+      console.log(event.keyCode, event.key) //keyCode: 아스키코드 keyText: 눌린 키
+      if (event.keyCode == 13) { //enter값
+        alert('입력 완료');
+      }
+    })
+
+    div.addEventListener('click', () => { //id가 있는 경우 바로 이벤트? 걸기 가능
+      // alert('div가 클릭되었습니다.');
+      console.log(event.clientX, event.clientY) //좌표값
+    });
+
+    btn.addEventListener('click', () => {
+      // event.stopPropagation(); //이벤트 전파 중지
+      // alert('btn이 클릭되었습니다.');
+    });
+
+    goBtn.addEventListener('click', () => {
+      if (!confirm('네이버로 이동하시겠습니까?')) {
+        event.preventDefault(); //원래 기능을 막음. a태그나 submit 등
+      }
+    })
+  </script>
+</body>
+
+</html>

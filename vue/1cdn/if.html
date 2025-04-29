@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>if.html</title>
+</head>
+
+<body>
+  <div id="app">
+    <div v-if="score >= 90">A등급</div>
+    <div v-else-if="score >= 80">B등급</div>
+    <div v-else-if="score >= 70">C등급</div>
+    <div v-else>D등급</div>
+
+    <!-- v-if="true값": true값이면 출력. -->
+    <!--true값이 아니면 태그가 홈페이지의 요소 자체에 출력되지도 않음.-->
+  </div>
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script>
+    Vue.createApp({ //vue 기본 구조. CDN - createApp({data()return{}}).mount('#아이디');
+      data() { //function data(){}를 줄인 것.
+        return {
+          //return에 들어갈 것이 바인딩할 값.
+          score: 90
+        }
+      }
+    }).mount("#app"); //컨테이너로 쓸 루트 엘리먼트 아이디를 넣어줌.
+  </script>
+  <!-- createApp 객체 안에 data()라는 함수 호출. return값이 element에 바인딩할 데이터. -->
+
+</body>
+
+</html>

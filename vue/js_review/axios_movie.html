@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>axios_movie.html</title>
+</head>
+
+<body>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script>
+    const url = 'http://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=12664b24453335d2c3eca0fdc4b3b013&targetDt=20250423'
+    //1위 영화의 제목 출력.
+    axios.get(url)
+    .then(response => {
+      console.log(response.data) //data빼먹으면안됨!!!!!!!!!!
+      let topRank = response.data.boxOfficeResult.dailyBoxOfficeList[0].movieNm;
+      console.log(topRank);
+      let h2 = document.createElement('h2');
+      h2.innerText = '박스 오피스 1위 영화: ' + topRank;
+      document.querySelector('body').appendChild(h2);
+
+    })
+    .catch(err => console.error(err))
+    .finally()
+  </script>
+</body>
+
+</html>

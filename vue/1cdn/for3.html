@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>for3.html</title>
+</head>
+
+<body>
+  <div id="app">
+    <div v-for="(value, key) in employee">
+      <label>{{key}}</label>
+        <input type="text" v-model="employee[key]">
+        <!--원래는 v-bind:value="value"이지만 속성이 같다면 뒤의  ""생략가능-->
+    </div>
+    <span v-for="page in totalPage"> <!--숫자 범위에도 v-for 사용 가능.-->
+      {{page}}
+    <span> <!-- v-html="page" = {{page}}-->
+  </div>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+  <script>
+    Vue.createApp({
+      data() {
+        return {
+          totalPage : 5,
+          employee: {
+            firstName: "홍길동",
+            dept: "개발",
+            sal: 3000,
+            hiredate: "2023-01-01"
+          }
+        }
+      }
+    }).mount('#app');
+  </script>
+</body>
+
+</html>

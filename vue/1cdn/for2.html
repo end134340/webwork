@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>for2.html</title>
+</head>
+
+<body>
+  <div id="app">
+    <table>
+      <tr>
+        <td>no.</td>
+        <td>이름</td>
+        <td>부서</td>
+        <td>급여</td>
+      </tr>
+      <tr v-for="(emp, idx) in employees">
+        <td>{{idx + 1}}</td>
+        <td>{{emp.firstname}}</td>
+        <td>{{emp.dept}}</td>
+        <td>{{emp.sal}}</td>
+      </tr>
+    </table>
+
+  </div>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script>
+    Vue.createApp({
+      data() {
+        return {
+          // [ {firstname: "홍길동", dept: "개발", sal: 2000}, ]
+          employees: [{
+              firstname: "홍길동",
+              dept: "개발",
+              sal: 2000
+            },
+            {
+              firstname: "김길동",
+              dept: "인사",
+              sal: 1700
+            },
+            {
+              firstname: "박길동",
+              dept: "개발",
+              sal: 2400
+            }
+          ]
+        }
+      }
+    }).mount('#app');
+  </script>
+</body>
+
+</html>

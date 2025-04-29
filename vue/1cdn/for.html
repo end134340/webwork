@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>for.html</title>
+</head>
+
+<body>
+  <div id="app">
+    <ul>
+      <!-- <li v-for="item in items">{{item.name}}의 가격: {{item.price}}원</li> : 기본-->
+      <li v-for="(item, idx) in items">{{idx}}번 {{item.name}}의 가격: {{item.price}}원</li>
+    </ul>
+  </div>
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script>
+    Vue.createApp({
+      data() {
+        return {
+          //for문을 사용하려면 배열 구조로 만들어  넘겨야함.
+          items: [{
+              name: "바나나",
+              price: 4000
+            },
+            {
+              name: "복숭아",
+              price: 12000
+            },
+            {
+              name: "포도",
+              price: 9900
+            },
+          ]
+        }
+      }
+    }).mount('#app');
+  </script>
+</body>
+
+</html>

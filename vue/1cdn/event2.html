@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>event2.html</title>
+</head>
+
+<body>
+  <div id="app">
+    <input type="text" @keyup.space="keyPress">
+    <a href="http://naver.com" @click.prevent="aClick">네이버로 가기</a>
+      <!--.prevent: 원래 이벤트 막음-->
+    <div @click="divClick">
+      <button @click.stop="btnClick" type="button">클릭</button>
+      <!--.stop: 이벤트 전파 막음-->
+    </div>
+  </div>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+  <script>
+    Vue.createApp({
+      data() {
+        return {}
+      },
+      methods: {
+        divClick() {
+          alert('div태그 클릭');
+        },
+        btnClick() {
+          alert('btn태그 클릭');
+        },
+        aClick() {
+          alert('a태그 클릭');
+        },
+        keyPress(){
+          alert('키 눌림');
+        }
+      }
+    }).mount('#app');
+  </script>
+</body>
+
+</html>

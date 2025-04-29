@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>event1.html</title>
+</head>
+
+<body>
+  <div id="app">
+    <button v-on:click="incre">증가</button>
+    {{count}}
+    <button @click="decre">감소</button> 
+    <!-- @로 줄일 수 있음.-->
+  </div>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script>
+    Vue.createApp({
+      data() {
+        return {
+          count: 1
+        }
+      },
+      methods: {
+        incre(){
+          this.count++; //this를 안 붙이면 지역변수 가져옴. 반드시 붙여야함
+        },
+        decre(){
+          if(this.count > 0){
+            this.count--;
+          }
+        }
+      }
+    }).mount("#app");
+  </script>
+
+</body>
+
+</html>

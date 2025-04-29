@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>axios.html</title>
+</head>
+
+<body>
+
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script>
+    //AXIOS: 보내는 것도 받는 것도 기본 JSON.
+    //fetch는 그냥  쓸 수 있지만 Axios는 CDN을 걸거나 install해야함.
+    const url = 'https://jsonplaceholder.typicode.com/posts'
+    const data = {
+      title: '오늘 할 일',
+            body: 'AJAX공부',
+            userId: 1,
+    }
+    axios.post(url, {
+       data 
+      })
+      .then(response => console.log(response.data))  
+      //기본적으로 JSON이기 때문에 파싱할 필요도, 파싱해서 받아올 필요 없음.
+      //응답 결과? 보려면 data를 봐야함.
+      .catch(function (error) {
+        console.log(error);
+      });
+  </script>
+</body>
+
+</html>

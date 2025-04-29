@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>array.html</title>
+</head>
+
+<body>
+  <div class="fruit">
+    <p data-price="4000">바나나</p>
+    <p data-price="9000">오렌지</p>
+    <p data-price="15000">복숭아</p>
+  </div>
+
+  <script>
+    const fruits = document.querySelectorAll('.fruit p');
+
+    //data-*는 dataset.*로 속성을 읽어오면 됨.
+    //map: 루프를 돌려서 return값을 모아서 새 배열로 만듦.
+    let arr = Array.from(fruits).map(ele => ({
+      name: ele.innerHTML,
+      price: ele.dataset.price
+    }));
+    //Array.from(배열로바꾸고싶은거) => 배열이 아닌 것을 배열로 만들어주는 메소드
+    console.log(arr);
+    // fruits.forEach(item => console.log(item.textContent))
+
+    //파괴함수: 새 배열을 만들지 않고 원본 배열을 수정함. return값 받을 필요 X
+    arr.sort((a, b) => {
+      if (a.price > b.price) {
+        return 1;
+      } else if (a.price == b.price) {
+        return 0;
+      } else {
+        return -1;
+      }
+    });
+    console.log(arr);
+
+    //find: 조건에 맞는 처음 하나만 찾음 vs filter(): 전부 뒤져서 조건에 맞으면 다 찾음
+    let findResult = arr.find(ele => ele.price > 5000)
+    console.log('find결과: ', findResult);
+
+    let filterResult = arr.filter(ele => ele.price > 5000);
+    console.log('filter결과: ', filterResult);
+  </script>
+</body>
+
+</html>

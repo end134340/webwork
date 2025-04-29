@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Async.html</title>
+</head>
+<body>
+  <script>
+    async function getBoard(){
+      let res = await fetch('http://localhost:3000/board/1')
+      res = await res.json()
+      console.log(1, res)
+      console.log('2', 'end response')
+    }
+
+    async function getBoardAxios() {
+      let res = await axios('http://localhost:3000/board/1')
+      console.log(1, res.data.title);
+      console.log('2')
+    }
+    getBoard();
+    console.log('3', 'the end')
+
+  </script>
+</body>
+</html>

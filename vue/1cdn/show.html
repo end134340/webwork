@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>show.html</title>
+</head>
+
+<body>
+  <div id="app">
+    v-show test
+    <div v-show="isVisible">Vue show 연습.</div>
+    <!-- v-show: 홈페이지에 태그가 그려지긴 하지만 보이진 않음. 
+     false 값이면 style="display: none;"이 들어감.-->
+  </div>
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+  <script>
+    Vue.createApp({
+      data() {
+        return {
+          isVisible: true
+        }
+      }
+    }).mount('#app');
+  </script>
+</body>
+
+</html>
