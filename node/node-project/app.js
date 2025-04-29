@@ -144,15 +144,26 @@ app.get('/emp', (req, res) => { //클라이언트에서 get 방식으로 요청�
 })
 
 app.get('/find', (req, res) => { //부서가 10번인 첫 번째 사원 return
-  res.send('Welcome Home!!!!!!!!!')
+  res.send(data.find( ele => ele.department_id == 10))
 })
 
 app.get('/filter', (req, res) => { //jon_id가 it인 사원만.(데이터 확인.)
-  res.send('Welcome Home!!!!!!!!!') 
+  res.send(data.filter( ele => ele.job_id = 'it')) 
 })
 
 app.get('/sort', (req, res) => {  //first_name 순으로 정렬.
-  res.send('Welcome Home!!!!!!!!!')
+  res.send(data.sort((a, b) => {
+    let uppercaseA = a.first_name.toUpperCase()
+    let uppercaseB = b.first_name.toUpperCase()
+
+    if(uppercaseA > uppercaseB){
+      return 1;
+    } else if(uppercaseA == uppercaseB) {
+      return 0;
+    }else if (uppercaseA < uppercaseB){
+      return -1
+    }
+  }))
 })
 
 app.listen(port, () => {
