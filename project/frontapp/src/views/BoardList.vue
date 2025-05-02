@@ -29,7 +29,7 @@
 
 <script>
   import axios from 'axios';
-  axios.defaults.baseURL = 'http://localhost:3000/';
+  axios.defaults.baseURL = 'http://localhost:3000/board';
 
   export default {
     data(){
@@ -39,13 +39,13 @@
     },
     methods: {
       async boardList(){ //아래 await가 실행될 때까지 기다리는 함수.
-        let result = await axios.get('board') //동기식으로 처리
+        let result = await axios.get('') //동기식으로 처리
         this.boards = result.data;
         
       },
       goToDetail(id) { //라우터(index.js에 작성한 path로 이동하게 만드는 코드.)
         //query: ?id=1    param: boardInfo/1
-        this.$router.push({ path: '/boardInfo', query: {id: id} });
+        this.$router.push({ name: 'boardInfo',  params: { id: id } });
       },
       goToForm() {
         this.$router.push({ path: '/boardForm' });

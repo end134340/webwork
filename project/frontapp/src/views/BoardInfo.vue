@@ -40,6 +40,9 @@
           </tr>
         </tbody>
       </table>
+      <div>
+        <CommentComp :bid="board.id"  />
+      </div>
     </div>
     <!-- 댓글 -->
     <div class="row">
@@ -50,31 +53,35 @@
 
 <script>
   import axios from 'axios';
-  axios.defaults.baseURL = 'http://localhost:3000/';
+  axios.defaults.baseURL = 'http://localhost:3000/board';
+  import CommentComp from '../components/CommentComp.vue';
 
   export default {
+    components: {
+      CommentComp
+    },
     data(){
       return {
-        board: {}
+        board: {},
       }
     },
     methods: {
       selectBoard(id){
-        axios.get(`board/${id}`)
+        axios.get(`/${id}`)
         .then(response => {
-          this.board = response.data;
+          this.board = response.data[0];
         })
       },
       goToUpdate(id) {
-        this.$router.push({ path: '/boardForm', query: {id: id}});
+        this.$router.push({ name: 'boardForm', params: {id: id}});
       },
       goToList(){
-        this.$router.push({ path: 'boardList' });
+        this.$router.push({ path: '/boardList' });
       }
     },
     mounted() {
-      let id = this.$route.query.id;
-      this.selectBoard(id);
+      this.id = this.$route.params.id;;
+      this.selectBoard(this.id);
     }
   }
 

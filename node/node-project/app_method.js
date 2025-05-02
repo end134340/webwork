@@ -164,9 +164,10 @@ app.route('/emp') //이 url 요청이 들어올 때
     res.send(req.body);
   })
 
-  //Router를 이용하여 모듈(파일) 분리해 리소스별로 라우트 지정.
+//Router를 이용하여 모듈(파일) 분리해 리소스별로 라우트 지정.
 app.use('/product', require('./routes/product.js')) //생성한 라우터 파일 import하면서 호출 url 지정.
 app.use('/dept', require('./routes/dept.js'));
+
 
 
 //listen 설정은 맨 마지막에! 라우터는 중간에.

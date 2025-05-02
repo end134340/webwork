@@ -23,12 +23,12 @@ const router = createRouter({
       component: () => import('../views/BoardList.vue'),
     },
     {
-      path: '/boardInfo',
+      path: '/boardInfo/:id',
       name: 'boardInfo',
       component: () => import('../views/BoardInfo.vue'),
     },
     {
-      path: '/boardForm',
+      path: '/boardForm/:id?',
       name: 'boardForm',
       component: () => import('../views/BoardForm.vue'),
     },
