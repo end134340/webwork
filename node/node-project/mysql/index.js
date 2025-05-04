@@ -2,7 +2,8 @@
 const mysql = require("mysql2");
 const customer = require('../mysql/customersql.js');
 const board = require('../mysql/boardsql.js');
-const sqlList = { customer, board }; // = customer: customer, board: board
+const comment = require('../mysql/commentsql.js');
+const sqlList = { customer, board, comment }; // = customer: customer, board: board
 // sqlList['customer']['selectList']; 형식으로 2차원 배열처럼 들어와야함.
 //sql 쿼리문 임포트.
 

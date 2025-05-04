@@ -27,6 +27,7 @@ app.get('/', (req, res) => { //엔드포인트
 // app.get('/customers');
 app.use('/customers', require('./routes/customers.js'));
 app.use('/board', require('./routes/board.js'));
+app.use('/comment', require('./routes/comment.js'))
 
 app.listen(port, () => {
   console.log(`http://localhost:${port}서버 실행됨.`);
