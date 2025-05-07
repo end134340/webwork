@@ -15,7 +15,6 @@ const router = createRouter({
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      //lazy-loaded한 건 처음에 안 내려받고 여기에 있는 링크를 클릭하면...다운받음.
       component: () => import('../views/AboutView.vue'),
     },
     {
@@ -32,21 +31,6 @@ const router = createRouter({
       path: '/boardForm/:id?',
       name: 'boardForm',
       component: () => import('../views/BoardForm.vue'),
-    },
-    {
-      path: '/customerList',
-      name: 'customerList',
-      component: () => import('../views/CustomerList.vue'),
-    },
-    {
-      path: '/loginPage',
-      name: 'loginPage',
-      component: () => import('../views/LoginView.vue'),
-    },
-    {
-      path: '/boardTable',
-      name: 'boardTable',
-      component: () => import('../views/BoardTable.vue'),
     },
   ],
 })

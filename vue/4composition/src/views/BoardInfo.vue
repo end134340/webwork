@@ -51,37 +51,31 @@
   </div>
 </template>
 
-<script>
+<script setup>
   import axios from 'axios';
-  import CommentComp from '../components/CommentComp.vue';
+  import CommentComp from '../components/CommentComp.vue'; //옵션 방식에서는 그냥 임포트하고 바로 템플릿에 쓰면됨
+  import { ref } from 'vue';
+  import { useRoute, useRouter } from 'vue-router';
 
-  export default {
-    components: {
-      CommentComp
-    },
-    data(){
-      return {
-        board: {},
-      }
-    },
-    methods: {
-      selectBoard(id){
-        axios.get(`/api/board/${id}`)
-        .then(response => {
-          this.board = response.data[0];
-        })
-      },
-      goToUpdate(id) {
-        this.$router.push({ name: 'boardForm', params: {id: id}});
-      },
-      goToList(){
-        this.$router.push({ path: '/boardList' });
-      }
-    },
-    mounted() {
-      this.id = this.$route.params.id;;
-      this.selectBoard(this.id);
-    }
+  const board = ref({});
+  const router = useRouter();
+  const route = useRoute();
+
+  function selectBoard(id) {
+    axios.get(`/api/board/${id}`)
+      .then(response => {
+        board.value = response.data[0];
+      })
+  };
+
+  function goToUpdate(id) {
+    router.push(`/boardForm/${id}`)
   }
 
+  function goToList() {
+    router.push('/boardList');
+  }
+
+  let id = route.params.id;
+  selectBoard(id);
 </script>

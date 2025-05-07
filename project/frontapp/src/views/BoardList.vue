@@ -29,7 +29,6 @@
 
 <script>
   import axios from 'axios';
-  axios.defaults.baseURL = 'http://localhost:3000/board';
 
   export default {
     data(){
@@ -39,7 +38,7 @@
     },
     methods: {
       async boardList(){ //아래 await가 실행될 때까지 기다리는 함수.
-        let result = await axios.get('') //동기식으로 처리
+        let result = await axios.get('/api/board') //동기식으로 처리
         this.boards = result.data;
         
       },
