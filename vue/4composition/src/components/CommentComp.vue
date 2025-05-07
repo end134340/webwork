@@ -32,92 +32,97 @@
   </div>
 </template>
 
-<script>
+<script setup>
   import axios from 'axios';
+  import {
+    ref,
+    watch,
+    onMounted
+  } from 'vue';
 
-  export default {
-    props: [
-      'bid'
-    ],
-    data() {
-      return {
-        comments: [],
-        comment: {}
-      }
-    },
-    methods: {
-      getComment(bid) {
-        axios.get(`/api/comment/${bid}`)
-          .then(response => {
-            this.comments = response.data;
-          })
-      },
-      updateComment(id) {
-        let param = {
-          writer: this.comment.writer,
-          content: this.comment.content,
-          bid: this.bid
-        }
+  const comments = ref([]);
+  const comment = ref({});
 
-        if (id > 0) {
-          axios.put(`/api/comment/${id}`, param)
-            .then(response => {
-              if (response.data.affectedRows > 0) {
-                alert('댓글이 수정되었습니다.');
-                this.getComment(this.bid);
-                this.comment = {};
-              } else {
-                alert('문제가 있어 수정에 실패했했습니다.');
-              }
-            })
+  const props = defineProps({
+    bid: Number
+  })
 
-        } else {
-          axios.post('/api/comment', param)
-            .then(response => {
-              if (response.data.affectedRows > 0) {
-                alert('댓글이 등록되었습니다.');
-                this.getComment(this.bid)
-                this.comment = {};
-              } else {
-                alert('문제가 있어 등록에 실패했습니다.');
-              }
-            })
+  function getComment(bid) {
+    axios.get(`/api/comment/${bid}`)
+      .then(response => {
+        comments.value = response.data;
+      })
+  }
 
-        }
-      },
-      editComment(id) {
-        axios.get(`/api/comment/info/${id}`)
-          .then(response => {
-            this.comment = response.data[0];
-          })
-      },
-      deleteComment(id) {
-        if (confirm('댓글을 삭제하시겠습니까?')) {
-          axios.delete(`/api/comment/${id}`)
-            .then(response => {
-              if (response.data.affectedRows > 0) {
-                alert('댓글이 삭제되었습니다.');
-                this.getComment(this.bid);
-              } else {
-                alert('문제가 있어 삭제에 실패했습니다.');
-              }
-            })
-        }
-      }
-    },
-    watch: {
-      bid(newBid) {
-        if (newBid) {
-          this.getComment(newBid)
-        }
-      }
-    },
-    mounted() {
-      if (this.bid) {
-        this.getComment(this.bid);
-      }
+  function updateComment(id) {
+    let param = {
+      writer: comment.value.writer,
+      content: comment.value.content,
+      bid: props.bid
+    }
+
+    if (id > 0) {
+      axios.put(`/api/comment/${id}`, param)
+        .then(response => {
+          if (response.data.affectedRows > 0) {
+            alert('댓글이 수정되었습니다.');
+            getComment(props.bid);
+            comment.value = {};
+          } else {
+            alert('문제가 있어 수정에 실패했했습니다.');
+          }
+        })
+
+    } else {
+      axios.post('/api/comment', param)
+        .then(response => {
+          if (response.data.affectedRows > 0) {
+            alert('댓글이 등록되었습니다.');
+            getComment(props.bid)
+            comment.value = {};
+          } else {
+            alert('문제가 있어 등록에 실패했습니다.');
+          }
+        })
+
     }
   }
+
+  function editComment(id) {
+    axios.get(`/api/comment/info/${id}`)
+      .then(response => {
+        comment.value = response.data[0];
+      })
+  }
+
+  function deleteComment(id) {
+    if (confirm('댓글을 삭제하시겠습니까?')) {
+      axios.delete(`/api/comment/${id}`)
+        .then(response => {
+          if (response.data.affectedRows > 0) {
+            alert('댓글이 삭제되었습니다.');
+            getComment(props.bid);
+          } else {
+            alert('문제가 있어 삭제에 실패했습니다.');
+          }
+        })
+    }
+  }
+  watch(
+    () => props.bid, // 감시할 대상 (getter 함수 형태로)
+    (newBid) => { // 변경 감지 시 실행될 콜백
+      if (newBid) {
+        getComment(newBid);
+      }
+    }
+  );
+
+  // 컴포넌트가 마운트될 때 댓글을 불러옴
+  onMounted(() => {
+    if (props.bid) {
+      getComment(props.bid);
+    }
+  });
 </script>
 
 <style>

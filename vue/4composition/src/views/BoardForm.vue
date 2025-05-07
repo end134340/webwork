@@ -19,7 +19,7 @@
 
       <div v-if="board.id > 0">
         <label for="regdate">작성일자</label>
-        <input type="text" id="created_date" readonly :value="dateFormat" />
+        <input type="text" id="created_date" readonly :value="dateFormat()" />
       </div>
 
       <button
@@ -31,67 +31,59 @@
     </form>
   </div>
 </template>
-<script>
+<script setup>
    import axios from 'axios';
-    
-   export default {
-     data() {
-       return {
-         board: {}
-       }
-     },
-     methods: {
-       getBoard(id) {
-         axios.get(`/api/board/${id}`)
-           .then(response => {
-             this.board = response.data[0];
-           })
-       },
-       updateBoard(id) {
-         let param = {
-           title: this.board.title,
-           content: this.board.content,
-           writer: this.board.writer
-         };
+   import { ref } from 'vue';
+   import { useRoute, useRouter } from 'vue-router';
 
-         if (id > 0) {
-          //수정
-           axios.put(`/api/board/${id}`, param)
-             .then(response => {
-               if (response.data) {
-                 alert('정상적으로 수정되었습니다.');
-                 this.$router.push({
-                   path: '/boardList'
-                 });
-               } else {
-                 alert('문제가 있어 수정되지 못했습니다.');
-               }
-             })
-         } else {
-          //등록
-           axios.post('/api/board', param)
-             .then(response => {
-               alert('정상적으로 등록되었습니다.');
-               this.$router.push({
-                 path: '/boardList'
-               });
-             })
-         }
-       }
-       },
-     computed: {
-      dateFormat(){
-        // let date = this.getFormatDate(new Date(this.board.created_date))
-        // console.log(date);
-        return this.board.created_date.substr(0, 10);
-      }
-     },
-     mounted() {
-       this.id = this.$route.params.id;;
-       if(this.id > 0){
-        this.getBoard(this.id)
-       }
-     },
+   const router = useRouter();
+   const route = useRoute();
+
+   const board = ref({});
+  
+   function getBoard(id) {
+     axios.get(`/api/board/${id}`)
+       .then(response => {
+         board.value = response.data[0];
+       })
+   };
+
+   function updateBoard(id) {
+     let param = {
+       title: this.board.title,
+       content: this.board.content,
+       writer: this.board.writer
+     };
+
+     if (id > 0) {
+       //수정
+       axios.put(`/api/board/${id}`, param)
+         .then(response => {
+           if (response.data) {
+             alert('정상적으로 수정되었습니다.');
+             router.push('/boardList');
+           } else {
+             alert('문제가 있어 수정되지 못했습니다.');
+           }
+         })
+     } else {
+       //등록
+       axios.post('/api/board', param)
+         .then(response => {
+           alert('정상적으로 등록되었습니다.');
+           router.push('/boardList');
+         })
+     }
+   }
+   function dateFormat() {
+     // let date = this.getFormatDate(new Date(this.board.created_date))
+     // console.log(date);
+     return this.board.created_date.substr(0, 10);
+   }
+
+   let id = route.params.id;
+   if (id > 0) {
+     getBoard(id)
    }
 </script>
 
