@@ -10,21 +10,26 @@ const route = useRoute();
 
 const getBook = async (id) => {
   let result = await axios.get(`/api/books/${id}`)
-  book.value = result.data;
+  book.value = result.data[0];
+}
+
+let goToList = () => {
+  router.push('/bookList');
 }
 
 const updateBook = async (id) => {
   let param = {
-    title: book.title,
-    writer: book.writer,
-    pub_date: book.pub_date,
-    isbn: book.isbn,
-    book_desc: book.book_desc
+    title: book.value.title,
+    writer: book.value.writer,
+    pub_date: book.value.pub_date,
+    isbn: book.value.isbn,
+    book_desc: book.value.book_desc
   }
-
+  
+  
   if (id > 0) {
     //책 수정
-    let result = await axios.put(`/api/books/${id}`, [param, id])
+    let result = await axios.put(`/api/books/${id}`, param)
     if (result.data.affectedRows > 0) {
       alert('도서가 수정되었습니다.');
       router.push(`/bookInfo/${id}`);
@@ -33,6 +38,7 @@ const updateBook = async (id) => {
     }
   } else {
     //책 등록
+    console.log(param);
     let result = await axios.post('/api/books', param)
     if (result.data.affectedRows > 0) {
       alert('도서가 등록되었습니다.');
@@ -84,8 +90,8 @@ if(id > 0){
     <button type="button" @click="updateBook(book.id)" class="btn text-white" style="background-color: #efe2ff;">
       {{ id ? '수정' : '등록' }}
     </button>
-    <button type="button" @click="clearForm" class="btn text-dark" style="background-color: #d2fcfc;">
-      취소
+    <button type="button" @click="goToList" class="btn text-dark" style="background-color: #d2fcfc;">
+      목록으로
     </button>
   </div>
 </div>
