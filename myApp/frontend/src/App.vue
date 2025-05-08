@@ -1,5 +1,6 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
+import HelloWorld from './components/HelloWorld.vue'
 </script>
 
 <template>
@@ -10,11 +11,7 @@ import { RouterLink, RouterView } from 'vue-router'
       <nav>
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/about">About</RouterLink>
-        <RouterLink to="/boardList">게시판</RouterLink>
-        <RouterLink to="/nested">nested</RouterLink>
-        <RouterLink to="/component">컴포넌트</RouterLink>
-        <RouterLink to="/provide">Provide</RouterLink>
-        <RouterLink to="/watch">감시😕</RouterLink>
+        <RouterLink to="/bookList">도서 목록</RouterLink>
       </nav>
     </div>
   </header>
