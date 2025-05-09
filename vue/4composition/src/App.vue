@@ -15,6 +15,7 @@ import { RouterLink, RouterView } from 'vue-router'
         <RouterLink to="/component">컴포넌트</RouterLink>
         <RouterLink to="/provide">Provide</RouterLink>
         <RouterLink to="/watch">감시😕</RouterLink>
+        <RouterLink to="/store">Pinia🍍</RouterLink>
       </nav>
     </div>
   </header>

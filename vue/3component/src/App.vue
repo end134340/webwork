@@ -15,7 +15,8 @@ import HelloWorld from './components/HelloWorld.vue'
         <RouterLink to="/emps">사원 관리</RouterLink>
         <RouterLink to="/todo">할일</RouterLink>
         <RouterLink to="/slot">슬롯예제</RouterLink>
-
+        <RouterLink to="/vuetify">vuetify</RouterLink>
+        <RouterLink to="/store">pinia</RouterLink>
       </nav>
     </div>
   </header>

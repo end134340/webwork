@@ -16,14 +16,13 @@
 
           <tr>
             <th colspan="2" class="text-center table-primary">제목</th>
-            <td colspan="4">{{ board.title }}</td>
+            <td colspan="5">{{ board.title }}</td>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td colspan="6" class="text-left" valign="top" height="200">
-              <pre
-                style="white-space: pre-wrap;
+              <pre style="white-space: pre-wrap;
                   border: none;
                   background-color: white; ">{{ board.content }}</pre>
             </td>
@@ -41,7 +40,7 @@
         </tbody>
       </table>
       <div>
-        <CommentComp :bid="board.id"  />
+        <CommentComp :bid="board.id" />
       </div>
     </div>
     <!-- 댓글 -->

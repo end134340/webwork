@@ -1,7 +1,7 @@
 <script setup>
   import axios from 'axios';
   import { ref } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
+  import { useRoute, useRouter } from 'vue-router';
   const book = ref({});
   const router = useRouter();
   const route = useRoute();
@@ -9,6 +9,16 @@ import { useRoute, useRouter } from 'vue-router';
   const getBookInfo = async (id) => {
     let result = await axios.get(`/api/books/${id}`);
     book.value = result.data[0];
+  }
+
+  const deleteBook = async (id) => {
+    if (confirm('정말로 도서를 삭제하시겠습니까?')) {
+      let result = await axios.delete(`/api/books/${id}`)
+      if (result.data.affectedRows > 0) {
+        alert('도서가 삭제되었습니다.');
+        router.push('/bookList');
+      }
+    }
   }
 
   const goToList = () => {
@@ -64,6 +74,7 @@ import { useRoute, useRouter } from 'vue-router';
     <div>
       <button @click="goToList" type="button" class="custom-btn custom-btn-list">목록으로</button>
       <button @click="goToUpdate(book.id)" type="button" class="custom-btn custom-btn-edit">수정</button>
+      <button @click="deleteBook(book.id)" type="button" class="custom-btn custom-btn-delete">삭제</button>
     </div>
   </div>
 </template>
@@ -123,5 +134,15 @@ import { useRoute, useRouter } from 'vue-router';
 .custom-btn:focus {
   outline: none;
   box-shadow: 0 0 10px rgba(107, 76, 154, 0.5);
+}
+
+.custom-btn-delete {
+  background-color: #ff749e;
+  color: #f9f5ff;
+}
+
+.custom-btn-delete:hover {
+  background-color: #6b4c9a;
+  color: #fff;
 }
 </style>

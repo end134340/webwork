@@ -38,7 +38,6 @@ const updateBook = async (id) => {
     }
   } else {
     //책 등록
-    console.log(param);
     let result = await axios.post('/api/books', param)
     if (result.data.affectedRows > 0) {
       alert('도서가 등록되었습니다.');

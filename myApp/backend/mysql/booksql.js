@@ -3,7 +3,7 @@ const sqlList = {
   selectInfo: "SELECT id, title, writer, pub_date, isbn, book_desc FROM books WHERE id = ?",
   insertInfo: "INSERT books SET ?",
   updateInfo: "UPDATE books SET ? WHERE id = ?",
-  deleteInfo: "DELETE FROM shop.book WHERE id = ?"
+  deleteInfo: "DELETE FROM shop.books WHERE id = ?"
 }
 
 module.exports = sqlList;
