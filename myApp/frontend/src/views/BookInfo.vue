@@ -64,6 +64,14 @@
           <th class="align-top">소개</th>
           <td style="white-space: pre-line;">{{ book.book_desc }}</td>
         </tr>
+        <tr v-if="book.image">
+          <td colspan="2" style="text-align: center;">
+            <img :src="'/api/' + book.image" style="width: 350px; height: 350px; object-fit: scale-down;" />
+          </td>
+        </tr>
+        <tr v-else>
+          <td colspan="2" style="font-size: 14px; color: #ccc; text-align: center;">등록된 도서 이미지가 없습니다.</td>
+        </tr>
       </tbody>
       <tbody v-else>
         <tr>

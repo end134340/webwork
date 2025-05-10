@@ -4,6 +4,7 @@ import { ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
 const book = ref({});
+const fileInput = ref(null);
 
 const router = useRouter();
 const route = useRoute();
@@ -18,18 +19,19 @@ let goToList = () => {
 }
 
 const updateBook = async (id) => {
-  let param = {
-    title: book.value.title,
-    writer: book.value.writer,
-    pub_date: book.value.pub_date,
-    isbn: book.value.isbn,
-    book_desc: book.value.book_desc
-  }
-  
+  const formData = new FormData();
+  formData.append("title", book.value.title);
+  formData.append("writer", book.value.writer);
+  formData.append("pub_date", book.value.pub_date);
+  formData.append("isbn", book.value.isbn);
+  formData.append("book_desc", book.value.book_desc);
+  formData.append("image", book.value.image);
   
   if (id > 0) {
     //책 수정
-    let result = await axios.put(`/api/books/${id}`, param)
+    let result = await axios.put(`/api/books/${id}`, formData, {
+      headers: { "Content-Type": "multipart/form-data" }
+    })
     if (result.data.affectedRows > 0) {
       alert('도서가 수정되었습니다.');
       router.push(`/bookInfo/${id}`);
@@ -38,7 +40,9 @@ const updateBook = async (id) => {
     }
   } else {
     //책 등록
-    let result = await axios.post('/api/books', param)
+    let result = await axios.post('/api/books', formData, {
+      headers: { "Content-Type": "multipart/form-data" }
+    })
     if (result.data.affectedRows > 0) {
       alert('도서가 등록되었습니다.');
       router.push('/bookList');
@@ -46,6 +50,11 @@ const updateBook = async (id) => {
       alert('도서가 등록되지 못했습니다.');
     }
   }
+}
+
+const fileChange = () => {
+  const file = fileInput.value.files[0];
+  book.value.image = file;
 }
 
 let id = route.params.id;
@@ -61,7 +70,7 @@ if(id > 0){
   <h3 class="fw-bold mb-4" style="color: #6b4c9a;">도서 등록 📝</h3>
 
   <div class="mb-3">
-    <label for="title" class="form-label">책 제목</label>
+    <label for="title" class="form-label">제목</label>
     <input type="text" id="title" v-model="book.title" class="form-control" required />
   </div>
 
@@ -81,8 +90,13 @@ if(id > 0){
   </div>
 
   <div class="mb-3">
-    <label for="book_desc" class="form-label">책 설명</label>
+    <label for="book_desc" class="form-label">소개</label>
     <textarea id="book_desc" v-model="book.book_desc" class="form-control" rows="5" required></textarea>
+  </div>
+
+  <div class="mb-3">
+    <label for="image" class="form-label">도서 이미지</label>
+    <input type="file" class="form-control" ref="fileInput" @change="fileChange" />
   </div>
 
   <div class="d-flex justify-content-between">
